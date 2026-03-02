@@ -52,6 +52,7 @@ public class Piece {
     public ArrayList<Square> getControlledSquares(Square[][] board, Square start) {
      return null;
     }
+
     
 
     //TO BE IMPLEMENTED!
@@ -60,7 +61,58 @@ public class Piece {
     //returns an arraylist of squares which are legal to move to
     //please note that your piece must have some sort of logic. Just being able to move to every square on the board is not
     //going to score any points.
+    
+    //Piece: Bishop
+    //Rules: The bishop can only move diagonally (forward or back) 
+    //and cannot jump over other pieces. The bishop never changes the color square it is on. 
+    //There are two bishops on the board at the start.
+
+    //Precondition: 
+    //Postcondition: 
     public ArrayList<Square> getLegalMoves(Board b, Square start){
-    	return null;
+    	ArrayList<Square> moves = new ArrayList<>();
+        int currRow = start.getRow(); 
+        int currCol = start.getCol();
+        for (int i = 1; i <= 7; i++)
+        {
+            int newRow = currRow - i; 
+            int newCol = currCol + i;
+            if (newRow >= 0 && newRow <=7 && newCol >= 0 && newCol <= 7)
+            {
+                Square upRight = b.getSquareArray()[newRow][newCol];
+                moves.add(upRight);
+            }  
+        }
+        for (int i = 1; i <= 7; i++)
+        {
+            int newRow = currRow - i;
+            int newCol = currCol - i;
+            if (newRow >= 0 && newRow <= 7 && newCol >= 0 && newCol <= 7)
+            {
+                Square upLeft = b.getSquareArray()[newRow][newCol];
+                moves.add(upLeft);
+            }
+        }
+        for (int i = 1; i <= 7; i++)
+        {
+            int newRow = currRow + i;
+            int newCol = currCol + i;
+            if (newRow >= 0 && newRow <= 7 && newCol >= 0 && newCol <= 7)
+            {
+                Square downRight = b.getSquareArray()[newRow][newCol];
+                moves.add(downRight);
+            }
+        }
+        for (int i = 1; i <= 7; i++)
+        {
+            int newRow = currRow + i;
+            int newCol = currCol - i;
+            if (newRow >= 0 && newRow <= 7 && newCol >= 0 && newCol <= 7)
+            {
+                Square downLeft = b.getSquareArray()[newRow][newCol];
+                moves.add(downLeft);
+            }
+        }
+        return moves;
     }
 }
