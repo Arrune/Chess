@@ -50,7 +50,7 @@ public class Piece {
     //return a list of every square that is "controlled" by this piece. A square is controlled
     //if the piece capture into it legally.
     public ArrayList<Square> getControlledSquares(Square[][] board, Square start) {
-     return null;
+        return null;
     }
 
     
@@ -63,26 +63,45 @@ public class Piece {
     //going to score any points.
     
     //Piece: Bishop
-    //Rules: The bishop can only move diagonally (forward or back) 
+    /*Rules: The bishop can only move diagonally (forward or back) 
     //and cannot jump over other pieces. The bishop never changes the color square it is on. 
-    //There are two bishops on the board at the start.
-
-    //Precondition: 
-    //Postcondition: 
+    There are two bishops on the board at the start.*/
+    //Precondition: The Board object (b) must not be null and will be a 64 square board. The start square must be within board b (0-7).
+    //Postcondition: Returns an ArrayList of possible moves the piece could move to (based on the rules of the piece movement)
     public ArrayList<Square> getLegalMoves(Board b, Square start){
     	ArrayList<Square> moves = new ArrayList<>();
         int currRow = start.getRow(); 
         int currCol = start.getCol();
+        boolean pathBlocked = false;
         for (int i = 1; i <= 7; i++)
         {
             int newRow = currRow - i; 
             int newCol = currCol + i;
-            if (newRow >= 0 && newRow <=7 && newCol >= 0 && newCol <= 7)
+            if ((newRow >= 0 && newRow <=7 && newCol >= 0 && newCol <= 7))
             {
                 Square upRight = b.getSquareArray()[newRow][newCol];
-                moves.add(upRight);
+                if (!pathBlocked)
+                {
+                    if (!upRight.isOccupied())
+                    {
+                        moves.add(upRight);
+                    }
+                    else 
+                    {
+                        if(upRight.getOccupyingPiece().getColor() != this.getColor())
+                        {
+                            moves.add(upRight);
+                            pathBlocked = true;
+                        }
+                        else 
+                        {
+                            pathBlocked = true;
+                        }
+                    }
+
+                } 
             }  
-        }
+        } 
         for (int i = 1; i <= 7; i++)
         {
             int newRow = currRow - i;

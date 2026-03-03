@@ -104,6 +104,26 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         board[7][5].put(new Piece(true, RESOURCES_WBISHOP_PNG));
         board[0][2].put(new Piece(true, RESOURCES_BBISHOP_PNG));
         board[0][5].put(new Piece(true, RESOURCES_BBISHOP_PNG));
+        board[7][4].put(new Piece(true, RESOURCES_WKING_PNG));
+        board[0][4].put(new Piece(true, RESOURCES_BKING_PNG));
+        board[7][3].put(new Piece(true, RESOURCES_WQUEEN_PNG));
+        board[0][3].put(new Piece(true, RESOURCES_BQUEEN_PNG));
+        board[7][1].put(new Piece(true, RESOURCES_WKNIGHT_PNG));
+        board[0][1].put(new Piece(true, RESOURCES_BKNIGHT_PNG));
+        board[7][6].put(new Piece(true, RESOURCES_WKNIGHT_PNG));
+        board[0][6].put(new Piece(true, RESOURCES_BKNIGHT_PNG));
+        board[7][0].put(new Piece(true, RESOURCES_WROOK_PNG));
+        board[0][0].put(new Piece(true, RESOURCES_BROOK_PNG));
+        board[7][7].put(new Piece(true, RESOURCES_WROOK_PNG));
+        board[0][7].put(new Piece(true, RESOURCES_BROOK_PNG));
+        for(int i = 0; i <= 7; i++)
+        {
+            board[6][i].put(new Piece(true, RESOURCES_WPAWN_PNG));
+        }
+        for(int i = 0; i <= 7; i++)
+        {
+            board[1][i].put(new Piece(true, RESOURCES_BPAWN_PNG));
+        }
     }
 
     public Square[][] getSquareArray() {
