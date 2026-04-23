@@ -92,9 +92,9 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
     // number of pieces on either side.
     // it's up to you how you wish to arrange your pieces.
     void initializePieces() {
-        for (int i = 0; i <= 7; i++){
-           board[6][i].put(new Pawn(true, RESOURCES_WPAWN_PNG));
-           board[1][i].put(new Pawn(false, RESOURCES_BPAWN_PNG)); 
+        for (int i = 0; i <= 7; i++) {
+            board[6][i].put(new Pawn(true, RESOURCES_WPAWN_PNG));
+            board[1][i].put(new Pawn(false, RESOURCES_BPAWN_PNG));
         }
         board[7][1].put(new Knight(true, RESOURCES_WKNIGHT_PNG));
         board[7][6].put(new Knight(true, RESOURCES_WKNIGHT_PNG));
@@ -112,7 +112,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         board[0][3].put(new Queen(false, RESOURCES_BQUEEN_PNG));
         board[7][4].put(new King(true, RESOURCES_WKING_PNG));
         board[0][4].put(new King(false, RESOURCES_BKING_PNG));
-        
+
     }
 
     public Square[][] getSquareArray() {
@@ -181,18 +181,21 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         }
         repaint();
     }
-    
+
     // TO BE IMPLEMENTED!
+    // Pre-condition: The board is initialized and contains a king of either color.
+    // The boolean kingColor corresponds to the color of the king we wish to know
+    // the status of
+    // Post-condition: Returns true of the king is in check and false otherwise
     private boolean isInCheck(boolean color) {
         int currKingRow = -1;
         int currKingCol = -1;
-
-        //Finding the location of the King of the player making the move
-        for (int r = 0; r < board.length; r++){
-            for (int c = 0; c < board[0].length; c++){
-                if (board[r][c].isOccupied()){
+        // Finding the location of the King of the player making the move
+        for (int r = 0; r < board.length; r++) {
+            for (int c = 0; c < board[0].length; c++) {
+                if (board[r][c].isOccupied()) {
                     Piece piece = board[r][c].getOccupyingPiece();
-                    if (piece.getColor() == color && piece instanceof King){
+                    if (piece.getColor() == color && piece instanceof King) {
                         currKingRow = r;
                         currKingCol = c;
                         break;
@@ -200,28 +203,27 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
                 }
             }
         }
-
-        //Returns false if King is not found
-        if (currKingRow == -1){
+        // Returns false if King is not found
+        if (currKingRow == -1) {
             return false;
-        }    
-
-        //Checking all of the opponents piece and see if they are attacking the King's square
-        for (int r = 0; r < board.length; r++){
-            for (int c = 0; c < board[0].length; c++){
-                if (board[r][c].isOccupied() && board[r][c].getOccupyingPiece().getColor() != color){
+        }
+        // Checking all of the opponents piece and see if they are attacking the King's
+        // square
+        for (int r = 0; r < board.length; r++) {
+            for (int c = 0; c < board[0].length; c++) {
+                if (board[r][c].isOccupied() && board[r][c].getOccupyingPiece().getColor() != color) {
                     Piece oppPiece = board[r][c].getOccupyingPiece();
-                    if (oppPiece.getColor() != color){
+                    if (oppPiece.getColor() != color) {
                         ArrayList<Square> controlledSquares = oppPiece.getControlledSquares(board, board[r][c]);
-                        if (controlledSquares != null){
-                            for (int i = 0; i < controlledSquares.size(); i++){
-                                if (controlledSquares.get(i).equals(board[currKingRow][currKingCol])){
+                        if (controlledSquares != null) {
+                            for (int i = 0; i < controlledSquares.size(); i++) {
+                                if (controlledSquares.get(i).equals(board[currKingRow][currKingCol])) {
                                     return true;
                                 }
                             }
                         }
                     }
-                    
+
                 }
             }
         }
@@ -243,7 +245,8 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         }
         // using currPiece
         if (fromMoveSquare != null) {
-            if (currPiece != null && currPiece.getLegalMoves(this, fromMoveSquare).contains(endSquare) && currPiece.getColor() == whiteTurn) {
+            if (currPiece != null && currPiece.getLegalMoves(this, fromMoveSquare).contains(endSquare)
+                    && currPiece.getColor() == whiteTurn) {
                 Piece captured = endSquare.getOccupyingPiece();
                 endSquare.put(currPiece);
                 fromMoveSquare.removePiece();
